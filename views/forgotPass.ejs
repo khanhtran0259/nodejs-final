@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Đăng nhập</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container my-3">
+    <h4>Forgot Password</h4>
+    <form novalidate action="/forgot-password" method="post">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input  type="email" class="form-control" id="email" placeholder="Nhập email" name="email">
+            <div class="email error"></div>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Mật khẩu:</label>
+            <input  type="password" class="form-control" id="pwd" placeholder="Nhập password" name="password">
+            <div class="password error"></div>
+        </div>
+       
+        <!-- <div class="alert alert-danger">
+           
+        </div> -->
+       
+        <button type="submit" class="btn btn-success">Đăng nhập</button>
+
+    </form>
+
+
+</div>
+<script>
+    const form = document.querySelector('form');
+    const errorEmail = document.querySelector('.email.error');
+    const errorPassword = document.querySelector('.password.error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      //reset value
+      errorEmail.textContent = ''
+      errorPassword.textContent = ''
+  
+      // get values
+      const email = form.email.value;
+      const password = form.password.value;
+  
+      
+    try{
+      const res = await fetch('/login', { 
+        method: 'POST',
+        body: JSON.stringify({email, password}),
+        headers: {'Content-Type': 'application/json'} 
+      })
+      const data = await res.json()
+      console.log(data)
+      if(data.errors){
+        errorEmail.textContent = data.errors.email
+        errorPassword.textContent = data.errors.password
+      }
+      
+      if(data.user){
+        location.assign('/')
+      }
+      
+    }
+    catch (err){ 
+      console.log(err)
+    }
+      
+    })
+  </script>
+
+</body>
+</html>
