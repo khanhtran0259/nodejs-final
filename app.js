@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes')
 const cookieParser = require('cookie-parser')
+require('dotenv').config();
 const { requireAuth, checkUser } = require('./routeHandler/authHandler')
 
 const app = express();
@@ -19,7 +20,7 @@ app.get('/user/:id',(req, res) => {
 // database connection
 const port = process.env.PORT || 5000;
 mongoose
-  .connect("mongodb://localhost/emailDB", {
+  .connect("mongodb+srv://bao2206:22062002giabao@giabao.qpbuzg2.mongodb.net/", {
     useNewUrlParser: true,
   })
   .then(() => {
