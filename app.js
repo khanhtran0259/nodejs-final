@@ -32,6 +32,6 @@ mongoose
 
 // routes
 app.get('*', checkUser)
-app.get('/', requireAuth, (req, res) => res.render('home'));
+app.get('/', requireAuth,(req, res) => res.render('home'));
 app.use(authRoutes)
 

@@ -1,21 +1,7 @@
 const mongoose = require('mongoose');
-const {isEmail} = require('validator')
 const mailSchema = new mongoose.Schema({
-    emailReceiver: {
-        type: String,
-        require: [true, 'Please enter email '],
-        unique: true,
-        lowercase: true,
-        validate: [isEmail, 'Please enter a valid email address']
-      },
-      emailSender: {
-        type: String,
-        require: [true, 'Please enter email '],
-        unique: true,
-        lowercase: true,
-        validate: [isEmail, 'Please enter a valid email address']
-      },
-   
+    emailReceiver: String,
+    emailSender: String,
     title: String,
     body: String,
     isDraft: false,

@@ -34,6 +34,20 @@ userSchema.pre('save', async function(next) {
     next();
 })
 
+// userSchema.pre('findOneAndUpdate', async function (next) {
+//   const update = { ...this.getUpdate() };
+
+//   // Only run this function if password was modified
+//   if (update.password) {
+
+//     // Hash the password
+//     const salt = genSaltSync();
+//     update.password = await hash(update.password, salt);
+//     this.setUpdate(update);
+//   }
+//   next();
+// })
+
 
 userSchema.statics.login = async function(email, password) {
     const user = await this.findOne({ email})

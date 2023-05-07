@@ -21,5 +21,7 @@ router.get('/received', authController.receivedmail_get)
 
 router.get('/sent-email', authController.formEmail_get)
 router.post('/sent-email', authController.formEmail_post)
+router.get("/details", authController.details_get);
+
 
 module.exports = router;

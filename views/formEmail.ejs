@@ -13,7 +13,8 @@
 <body>
     <form method="post">
         <div class="form-group" >
-            <label for="email">From: <%=user.email%></label>
+            <label for="email" >From: </label>
+            <input class="form-control" name="emailSender" type="email" id="email" value="<%=user.email%>" readonly>
             
           </div>
         <div class="form-group">
@@ -34,46 +35,36 @@
             </div>
          
 
-        
+          <button type="submit" class="btn btn-primary">Submit</button>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       <script>
+        
         const form = document.querySelector('form');    
         form.addEventListener('submit', async (e) => {
           e.preventDefault();     
           // get values
           const emailReceiver = form.emailReceiver.value;
-          const emailSender = user.email;
+          const emailSender = form.emailSender.value;
           const title = form.title.value;
           const body = form.content.value;
           const fileUpload = form.fileUpload.value;
           try{
             const res = await fetch('/sent-email', { 
               method: 'POST',
-              body: JSON.stringify({emailReceiver, emailSender, title, body, fileUpload}),
+              body: JSON.stringify({emailReceiver, emailSender ,title, body, fileUpload}),
               headers: {'Content-Type': 'application/json'} 
             })
             const data = await res.json()
             console.log(data)
-            if(data.errors.email){
-              error.textContent = data.errors.email
-              
-            }
-            else if(data.errors.password){
-              error.textContent = data.errors.password
-            }
-            else if(data.errors.fullName){
-              error.textContent = data.errors.fullName
-            }
-            else{
-              error.textContent = data.errors.phoneNumber
-            }
+            window.location = '/';
           }
           catch (err){ 
             console.log(err)
           }
-      
+        
         })
+        
       </script>
 </body>
 
